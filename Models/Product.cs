@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace read_write_files.Models
 {
-    public class Product 
+    public class Product
     {
         public string IdProduct { get; set; } = string.Empty;
 
@@ -16,7 +16,6 @@ namespace read_write_files.Models
         public string Description { get; set; } = string.Empty;
 
         public decimal Price { get; set; }
-
-
+        
     }
 }

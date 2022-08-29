@@ -1,4 +1,6 @@
 ﻿using read_write_files.Models;
+using read_write_files.Repositories;
+using read_write_files.Interfaces;
 
 namespace read_write_files
 {
@@ -6,7 +8,7 @@ namespace read_write_files
     {
         static void Main(string[] args)
         {
-            Product product = new();
+            Database product = new();
 
             string option;
 
@@ -40,6 +42,29 @@ namespace read_write_files
                         }
                         break;
 
+                    case "2":
+                        Console.WriteLine("Digite o ID do produto:");
+                        string id = Console.ReadLine();
+
+                        Console.WriteLine("Digite o nome do produto:");
+                        string name = Console.ReadLine();
+
+                        Console.WriteLine("Digite a descrição opcional;");
+                        string description = Console.ReadLine();
+
+                        Console.WriteLine("Digite o preço do produto:");
+                        string price = Console.ReadLine();
+
+                        Database newProduct = new()
+                        {
+                            IdProduct = id,
+                            Name = name,
+                            Description = description,
+                            Price = Convert.ToDecimal(price),
+                        };
+
+                        newProduct.Create(newProduct);
+                    break;
                     default:
                         break;
 

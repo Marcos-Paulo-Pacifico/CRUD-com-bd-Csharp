@@ -10,13 +10,24 @@ using System.Data.SqlClient;
 
 namespace read_write_files.Repositories
 {
-    internal class Database : IProduct
+    internal class Database : Product, IProduct
     {
 
         private readonly string stringConexao = "Data Source=PACIFICO-HP\\SQLEXPRESS;Initial Catalog=Catalog;User id=sa;pwd=pipoca*11;";
         public void Create(Product newProduct)
         {
-            throw new NotImplementedException();
+            using (SqlConnection con = new SqlConnection(stringConexao))
+            {
+                string query = $"INSERT INTO Products VALUES('{newProduct.IdProduct}','{newProduct.Name}','{newProduct.Description}',{newProduct.Price})";
+
+                con.Open();
+
+                using(SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
         }
 
         public void Delete(string idProduct)
