@@ -18,12 +18,18 @@ namespace read_write_files.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string query = $"INSERT INTO Products VALUES('{newProduct.IdProduct}','{newProduct.Name}','{newProduct.Description}',{newProduct.Price})";
+                string query = "INSERT INTO Products VALUES(@IdProduct,@Name,@Description,@Price)";
 
-                con.Open();
 
                 using(SqlCommand cmd = new SqlCommand(query, con))
                 {
+                    con.Open();
+
+                    cmd.Parameters.AddWithValue("@IdProduct", newProduct.IdProduct);
+                    cmd.Parameters.AddWithValue("@Name", newProduct.Name);
+                    cmd.Parameters.AddWithValue("@Description", newProduct.Description);
+                    cmd.Parameters.AddWithValue("Price", newProduct.Price);
+
                     cmd.ExecuteNonQuery();
                 }
             }
