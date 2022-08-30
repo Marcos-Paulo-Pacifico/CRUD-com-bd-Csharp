@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 
 namespace read_write_files.Repositories
 {
-    internal class Database : Product, IProduct
+    public class Database :  Product , IProduct
     {
 
         private readonly string stringConexao = "Data Source=PACIFICO-HP\\SQLEXPRESS;Initial Catalog=Catalog;User id=sa;pwd=pipoca*11;";
@@ -46,7 +46,7 @@ namespace read_write_files.Repositories
                 {
                     con.Open();
 
-                    cmd.Parameters.AddWithValue("IdProduct", idProduct);
+                    cmd.Parameters.AddWithValue("@IdProduct", idProduct);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -86,7 +86,23 @@ namespace read_write_files.Repositories
 
         public void Update(Product product)
         {
-            throw new NotImplementedException();
+            using(SqlConnection con = new SqlConnection(stringConexao))
+            {
+                string stringQuery = "UPDATE Products SET name = @name,description = @desc,price = @price WHERE idProduct = @idProduct";
+
+
+                using(SqlCommand cmd = new SqlCommand(stringQuery, con))
+                {
+                    con.Open();
+
+                    cmd.Parameters.AddWithValue("@idProduct", product.IdProduct);
+                    cmd.Parameters.AddWithValue("@name", product.Name);
+                    cmd.Parameters.AddWithValue("@desc", product.Description);
+                    cmd.Parameters.AddWithValue("@price", product.Price);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }          
         }
     }
 }

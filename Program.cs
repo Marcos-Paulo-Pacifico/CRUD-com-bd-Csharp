@@ -64,6 +64,39 @@ namespace read_write_files
                         };
 
                         newProduct.Create(newProduct);
+
+                        break;
+
+                    case "3":
+                        Console.WriteLine("Selecione o ID do roduto a ser atualizado:");
+                        string idUpdateProduct = Console.ReadLine();
+
+                        Console.WriteLine("Selecione o novo nome do produto:");
+                        string nameUpdateProduct = Console.ReadLine();
+
+                        Console.WriteLine("Selecione a nova descrição do produto:");
+                        string descriptionUpdateProduct = Console.ReadLine();
+
+                        Console.WriteLine("Selecione o novo preço do produto:");
+                        string priceUpdateProduct = Console.ReadLine();
+
+                        foreach (var item in product.ReadAll())
+                        {
+                            if(item.IdProduct == idUpdateProduct)
+                            {
+                                Database updatedProduct = new()
+                                {
+                                    IdProduct = item.IdProduct,
+                                    Name = nameUpdateProduct,
+                                    Description = descriptionUpdateProduct,
+                                    Price = Convert.ToDecimal(priceUpdateProduct),
+                                };
+
+                                updatedProduct.Update(updatedProduct);
+                            }
+                        }
+
+
                         break;
 
                     case"4":
