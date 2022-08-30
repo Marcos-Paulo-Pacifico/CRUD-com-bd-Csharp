@@ -38,7 +38,19 @@ namespace read_write_files.Repositories
 
         public void Delete(string idProduct)
         {
-            throw new NotImplementedException();
+            using(SqlConnection con =  new SqlConnection(stringConexao))
+            {
+                string queryString = "DELETE From Products Where idProduct = @IdProduct";
+
+                using(SqlCommand cmd = new SqlCommand(queryString, con))
+                {
+                    con.Open();
+
+                    cmd.Parameters.AddWithValue("IdProduct", idProduct);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<Product> ReadAll()

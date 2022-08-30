@@ -64,7 +64,15 @@ namespace read_write_files
                         };
 
                         newProduct.Create(newProduct);
-                    break;
+                        break;
+
+                    case"4":
+
+                        Console.WriteLine("Digite o ID do produto a ser excluido:");
+                        string idDelProduct = Console.ReadLine();  
+                        product.Delete(idDelProduct);
+
+                        break;
                     default:
                         break;
 
